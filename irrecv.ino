@@ -242,6 +242,30 @@ void setmotor_b_go()
 
 
  
+#include <IRremote.h>
+
+#define motor_b_spd 3
+#define motor_b_dir1 4
+#define motor_b_dir2 5
+#define motor_a_dir1 7
+#define motor_a_dir2 8
+#define motor_a_spd 9
+
+
+int trig=12;
+int echo=13;
+
+void setmotor_a_go();
+void setmotor_b_go();
+
+int RECV_PIN_RIGHT=10;
+int RECV_PIN_LEFT=11;
+
+IRrecv irrecv_left(RECV_PIN_LEFT);
+
+IRrecv irrecv_right(RECV_PIN_RIGHT);
+
+ 
 
  
 
