@@ -237,3 +237,144 @@ void setmotor_b_go()
   digitalWrite(motor_b_dir1,LOW);
   digitalWrite(motor_b_dir2,HIGH);
 }
+
+//01.24
+
+
+ 
+
+ 
+
+void setup()
+
+{
+
+   Serial.begin(9600);
+
+  pinMode(RECV_PIN_RIGHT,INPUT);
+  pinMode(RECV_PIN_LEFT,INPUT);
+  
+
+   pinMode(motor_a_dir1,OUTPUT);
+   pinMode(motor_a_dir2,OUTPUT);
+   pinMode(motor_b_dir1,OUTPUT);
+   pinMode(motor_b_dir2,OUTPUT);
+   
+   pinMode(trig,OUTPUT);
+   pinMode(echo,INPUT);
+   //irrecv_left.enableIRIn(); // Start the receiver
+
+  //irrecv_right.enableIRIn();
+
+
+}
+
+ 
+
+void loop()
+
+{
+  irrecv_left.resume();
+  irrecv_right.resume();
+  
+  digitalWrite(trig,LOW);
+  delayMicroseconds(2);
+  digitalWrite(trig,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig,LOW);
+  
+  long duration=pulseIn(echo,HIGH);
+  long distance=(duration*340)/2/10000;
+  
+  Serial.print(distance);
+  Serial.println("cm");
+  delay(300);
+  
+  int val_right=digitalRead(RECV_PIN_RIGHT);
+  int val_left=digitalRead(RECV_PIN_LEFT);
+  Serial.print(distance);
+  Serial.println("cm");
+  
+  if(!val_right)
+  {
+    Serial.println("right");
+    setmotor_a_go();
+    setmotor_b_go();
+    analogWrite(motor_a_spd,200);
+    
+ 
+    analogWrite(motor_b_spd,200);
+    delay(3000);
+  }
+  else if(!val_left){
+    Serial.println("left");
+    setmotor_a_go();
+    analogWrite(motor_a_spd,200);
+    setmotor_b_stop();
+    delay(3000);
+    
+  }
+    /* else if(val_right==HIGH)
+  {
+    Serial.println("stop");
+    digitalWrite(motor_a_dir1,LOW);
+    digitalWrite(motor_a_dir2,LOW);
+    
+    digitalWrite(motor_b_dir1,LOW);
+    digitalWrite(motor_b_dir2,HIGH);
+    analogWrite(motor_b_spd,200);
+    irrecv_right.resume();
+    delay(1000);
+  }*/
+  
+  //int val_left=digitalRead(RECV_PIN_LEFT);
+
+ else{
+   Serial.println("nono");
+   setmotor_a_stop();
+    setmotor_b_stop();
+ }
+
+  
+
+  
+
+  /*if(val_left==LOW)
+  {
+    digitalWrite(LEDLEFT,HIGH);
+    delay(100);
+    digitalWrite(LEDLEFT,LOW);
+    delay(100);
+  }*/
+
+
+  //irrecv_left.resume();
+
+  
+
+  delay(100);
+}
+
+
+void setmotor_a_go()
+{
+    digitalWrite(motor_a_dir1,HIGH);
+    digitalWrite(motor_a_dir2,LOW);
+}
+void setmotor_b_go()
+{
+  digitalWrite(motor_b_dir1,HIGH);
+  digitalWrite(motor_b_dir2,LOW);
+}
+
+
+void setmotor_a_stop()
+{
+    digitalWrite(motor_a_dir1,LOW);
+    digitalWrite(motor_a_dir2,LOW);
+}
+void setmotor_b_stop()
+{
+  digitalWrite(motor_b_dir1,LOW);
+  digitalWrite(motor_b_dir2,LOW);
+}
