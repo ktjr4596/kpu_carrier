@@ -18,3 +18,11 @@ double cal::get_pointy(const double &x, const circle &a)
 	return y1;
 	
 }
+
+double cal::get_angle(const double &x, const double &y)
+{
+	double temp =atan( y / x);
+	
+	return temp;
+}
+
