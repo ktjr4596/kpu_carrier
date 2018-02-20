@@ -4,13 +4,13 @@
 
 double cal::get_pointx(const double & a, const double & b)
 {	
-	return (-(pow(b, 2.0) - pow(a, 2.0)) / 20.0);
+	return (-(pow(b, 2.0) - pow(a, 2.0)) / 4.0);
 }
 
 double cal::get_pointy(const double &x, const double &a)
 {
 	
-	return (pow(10, 2.0) - (4 * 1 * (pow(x, 2.0) + (10 * x) + 50 - pow(a, 2.0))));
+	return (pow(10, 2.0) - (4 * 1 * (pow(x, 2.0) + (2 * x) + 26 - pow(a, 2.0))));
 	
 }
 
